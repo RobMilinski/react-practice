@@ -7,18 +7,20 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { useEffect } from 'react';
 
 function App() {
-  const [cityList, setCityList] = useState([{city:'Canberra', temp: -4, country: 'AU'}]);
+  const [cityList, setCityList] = useState([]);
   const [city, setCity] = useState('');
+
+  const app_key = '75523f4c2e67ef3ab67afe0d532a2795';
   
   useEffect(() => {
     const cityList = JSON.parse(localStorage.getItem('cityList'));
     if (cityList) {
       setCityList(cityList);
+      refreshAll(cityList);
     }
   }, []);
 
   const onAddCity = () => {
-    let app_key = '75523f4c2e67ef3ab67afe0d532a2795';
     let url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&appid=' + app_key;
 
     fetch(url)
@@ -42,6 +44,28 @@ function App() {
     localStorage.setItem('cityList', JSON.stringify(newCityList));
   }
 
+  const refreshCity = (city) => {
+    console.log('refreshCity '+city);
+    let url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=metric&appid=' + app_key;
+    fetch(url)
+      .then(response => response.json())
+      .then(result => {
+        if (result.cod === 200) {
+          const cityData = cityList.filter((item) => item.city === city)
+          cityData[0].temp = result.main.temp;
+          setCityList([...cityList]);
+          localStorage.setItem('cityList', JSON.stringify(cityList));
+          console.log('New temperature for city '+city+' is '+result.main.temp);
+        }
+      })
+      .catch(e => console.log('Error in fetch: '+e));
+  }
+  const refreshAll = (cl) => {
+    console.log('refreshAll ',cl);
+    cl.forEach((item) => {
+      refreshCity(item.city)
+    })
+  }
 
   return (
     <div className="App">
@@ -67,6 +91,7 @@ function App() {
           <th>Temperature</th>
           <th>Country</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -78,6 +103,7 @@ function App() {
               <td>{cityData.temp}</td>
               <td>{cityData.country}</td>
               <td onClick={() => deleteCity(cityData.city)}>&#10060; Delete</td>
+              <td onClick={() => refreshCity(cityData.city)}>Refresh</td>
             </tr> 
             ))
         }
