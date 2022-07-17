@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+.App table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  border-width: 1px !important;
+  padding: 3px !important;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +43,4 @@
     transform: rotate(360deg);
   }
 }
+
