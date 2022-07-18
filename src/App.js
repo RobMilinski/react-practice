@@ -11,7 +11,9 @@ import DismissibleToast from './DismissibleToast';
 import AccordionDemo from './AccordionDemo';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import Container from 'react-bootstrap/Container'
+import Container from 'react-bootstrap/Container';
+import HookstateChat from './HookstateChat';
+import UncontrolledInputDemo from './UncontrolledInputDemo';
 
 function Home() {
   return (
@@ -46,6 +48,8 @@ function App() {
             <Nav.Link><Link to="/dismissibletoast">Dismissible Toast</Link></Nav.Link>
             <Nav.Link><Link to="/formdemo">Form Demo</Link></Nav.Link>
             <Nav.Link><Link to="/accordiondemo">Accordion Demo</Link></Nav.Link>
+            <Nav.Link><Link to="/hookstatechat">Hookstate Chat</Link></Nav.Link>
+            <Nav.Link><Link to="/uncontrolledinputdemo">Uncontrolled Input Demo</Link></Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -66,6 +70,12 @@ function App() {
           </Route>
           <Route path="/accordiondemo">
             <AccordionDemo />
+          </Route>
+          <Route path="/hookstatechat">
+            <HookstateChat />
+          </Route>
+          <Route path="/uncontrolledinputdemo">
+            <UncontrolledInputDemo />
           </Route>
           <Route>
             <NotFound />

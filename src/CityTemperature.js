@@ -128,7 +128,6 @@ function CityTemperature() {
     </Table>
 
     <hr />
-    <a href="/test">Test Link</a>
     <Modal show={showDuplicateModal} onHide={onCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Duplicate City Entered</Modal.Title>
